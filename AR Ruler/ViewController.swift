@@ -66,7 +66,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     func addDot(at hitResult : ARHitTestResult) {
         let dotGeometry = SCNSphere(radius: 0.005)
         let material = SCNMaterial()
-        material.diffuse.contents = UIColor.red
+        material.diffuse.contents = UIColor.yellow
         
         dotGeometry.materials = [material]
         
@@ -96,7 +96,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             pow(end.position.z - start.position.z, 2)
         )
         
-        updateText(text: "\(abs(distance))", atPosition: end.position)
+        let roundedValue = round(distance * 100) / 100.0
+        
+        updateText(text: "\(abs(roundedValue))m", atPosition: end.position)
         
 //        distance = √ ((x2-x1)^2 + (y2-y1)^2 + (z2-z1)^2)
         
@@ -108,13 +110,13 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         let textGeometry = SCNText(string: text, extrusionDepth: 1.0)
         
-        textGeometry.firstMaterial?.diffuse.contents = UIColor.red
+        textGeometry.firstMaterial?.diffuse.contents = UIColor.green
         
         textNode = SCNNode(geometry: textGeometry)
         
         textNode.position = SCNVector3(position.x, position.y + 0.01, position.z)
         
-        textNode.scale = SCNVector3(0.01, 0.01, 0.01)
+        textNode.scale = SCNVector3(0.001, 0.001, 0.001)
         
         sceneView.scene.rootNode.addChildNode(textNode)
         
